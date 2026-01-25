@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --cp-neon-pink: #ff0055;
+    --cp-neon-blue: #00f3ff;
+    --cp-neon-yellow: #fcee0a;
+    --cp-neon-orange: #775522;
+    /* User requested color */
+    --cp-bg-dark: #050505;
+    --cp-bg-panel: #121212;
+    --cp-text-main: #e0e0e0;
+}
+
+/* --- Buttons --- */
+.vim-matcher-btn,
+.vim-delete-btn {
+    margin-left: 10px;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: 1px solid var(--cp-neon-blue);
+    background-color: rgba(0, 243, 255, 0.1);
+    color: var(--cp-neon-blue);
+    border-radius: 0;
+    /* Angular */
+    cursor: pointer;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: all 0.1s;
+    box-shadow: 0 0 5px var(--cp-neon-blue);
+    clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%);
+}
+
+.vim-matcher-btn:hover {
+    background-color: var(--cp-neon-blue);
+    color: var(--cp-bg-dark);
+    box-shadow: 0 0 15px var(--cp-neon-blue);
+    text-shadow: none;
+}
+
+.vim-matcher-btn:disabled {
+    border-color: #555;
+    background-color: rgba(85, 85, 85, 0.1);
+    color: #555;
+    box-shadow: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.vim-delete-btn {
+    border-color: var(--cp-neon-pink);
+    background-color: rgba(255, 0, 85, 0.1);
+    color: var(--cp-neon-pink);
+    box-shadow: 0 0 5px var(--cp-neon-pink);
+    margin-left: 8px;
+}
+
+.vim-delete-btn:hover {
+    background-color: var(--cp-neon-pink);
+    color: white;
+    box-shadow: 0 0 15px var(--cp-neon-pink);
+}
+
+.vim-settings-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #333;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #000;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9998;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
+}
+
+.vim-settings-btn:hover {
+    transform: rotate(90deg);
+    background-color: #222;
+    color: #fffb00;
+}
+
+/* --- Badge --- */
+.vim-known-issue-badge {
+    background-color: rgba(119, 85, 34, 0.2);
+    color: var(--cp-neon-orange);
+    padding: 4px 12px;
+    border: 1px solid var(--cp-neon-orange);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 13px;
+    /* Increased from 11px */
+    font-weight: 800;
+    /* Extra bold */
+    margin-left: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    box-shadow: 0 0 8px var(--cp-neon-orange);
+    /* Stronger shadow */
+    text-shadow: 0 0 2px var(--cp-neon-orange);
+    /* Text glow */
+    clip-path: polygon(10% 0, 100% 0, 100% 80%, 90% 100%, 0 100%, 0 20%);
+}
+
+/* --- Modal Overlay --- */
+.vim-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(5, 5, 5, 0.85);
+    background-image: linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+    /* Grid effect */
+    backdrop-filter: blur(2px);
+    z-index: 9999;
+}
+
+/* --- Modal --- */
+.vim-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--cp-bg-panel);
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2), inset 0 0 0 1px var(--cp-neon-blue);
+    z-index: 10000;
+    width: 460px;
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--cp-text-main);
+    clip-path: polygon(0 0,
+            100% 0,
+            100% calc(100% - 20px),
+            calc(100% - 20px) 100%,
+            0 100%);
+    border: none;
+}
+
+/* Decorate the modal with a glowing line on top */
+.vim-modal::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--cp-neon-blue);
+    box-shadow: 0 0 10px var(--cp-neon-blue);
+}
+
+.vim-modal h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 20px;
+    color: var(--cp-neon-yellow);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--cp-neon-yellow);
+    border-bottom: 1px solid rgba(252, 238, 10, 0.3);
+    padding-bottom: 10px;
+}
+
+.vim-modal p {
+    font-size: 14px;
+    color: var(--cp-neon-blue);
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* --- Input --- */
+.vim-modal input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0 30px 0;
+    box-sizing: border-box;
+    background: #000;
+    border: 1px solid #333;
+    color: var(--cp-neon-pink);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 16px;
+    transition: all 0.2s;
+    outline: none;
+}
+
+.vim-modal input:focus {
+    border-color: var(--cp-neon-pink);
+    box-shadow: 0 0 10px var(--cp-neon-pink), inset 0 0 10px rgba(255, 0, 85, 0.2);
+}
+
+/* --- Actions --- */
+.vim-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.vim-modal-actions button {
+    padding: 10px 24px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    transition: all 0.2s;
+    border: 1px solid transparent;
+    clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
+}
+
+/* Cancel Button */
+#vim-cancel-btn {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+}
+
+#vim-cancel-btn:hover {
+    border-color: #fff;
+    color: #fff;
+    text-shadow: 0 0 5px #fff;
+}
+
+/* Save Button */
+#vim-save-btn {
+    background: var(--cp-neon-blue);
+    color: #000;
+    border: 1px solid var(--cp-neon-blue);
+    box-shadow: 0 0 10px var(--cp-neon-blue);
+}
+
+#vim-save-btn:hover {
+    background: #000;
+    color: var(--cp-neon-blue);
+    box-shadow: 0 0 20px var(--cp-neon-blue), inset 0 0 10px var(--cp-neon-blue);
+}

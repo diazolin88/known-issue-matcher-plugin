@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS known_issues;
+USE known_issues;
+
+CREATE TABLE IF NOT EXISTS known_issues (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    regex_pattern VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Known Issues Matcher",
+  "version": "1.0",
+  "description": "Matches known error patterns on a test page.",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "*://*/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

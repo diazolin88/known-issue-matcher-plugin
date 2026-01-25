@@ -1,0 +1,30 @@
+services:
+  app:
+    build: .
+    ports:
+      - "3000:8080"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/known_issues
+      - SPRING_DATASOURCE_USERNAME=myuser
+      - SPRING_DATASOURCE_PASSWORD=mypass
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=known_issues
+      - MYSQL_USER=myuser
+      - MYSQL_PASSWORD=mypass
+      - MYSQL_ROOT_PASSWORD=rootpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-u", "root", "-prootpassword" ]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+      start_period: 30s
