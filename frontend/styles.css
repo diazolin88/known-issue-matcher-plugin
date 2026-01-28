@@ -12,9 +12,14 @@
 }
 
 /* --- Buttons --- */
+.vim-actions-container {
+    display: inline-flex;
+    vertical-align: middle;
+    margin-left: 10px;
+}
+
 .vim-matcher-btn,
 .vim-delete-btn {
-    margin-left: 10px;
     width: 32px;
     height: 32px;
     padding: 0;

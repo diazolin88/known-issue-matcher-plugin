@@ -5,7 +5,7 @@
 
 /**
  * Handles the 'Delete' button click. Identifies the matched known issue for the row,
- * calls the backend to delete it, and reloads the page.
+ * calls the backend to delete it, and refreshes the UI.
  * 
  * @async
  * @param {Event} e - The click event.
@@ -20,12 +20,11 @@ async function handleDeleteClick(e, rowElement) {
 
     const errorDiv = row.querySelector(settings.errorSelector);
     if (!errorDiv) {
-        alert('No .error div found in this row.');
+        console.warn('VIM: No .error div found in this row.');
         return;
     }
 
     const errorText = errorDiv.textContent.trim();
-    // Re-fetch issues to ensure we have fresh data for delete
     const knownIssues = await window.KnownIssuesApiClient.getKnownIssues();
 
     let matchedIssue = null;
@@ -37,21 +36,21 @@ async function handleDeleteClick(e, rowElement) {
                 break;
             }
         } catch (e) {
-            console.warn('Invalid regex:', issue.regex_pattern);
+            console.warn('VIM: Invalid regex:', issue.regex_pattern);
         }
     }
 
     if (!matchedIssue) {
-        alert('No known issue matches this error text.');
+        console.warn('VIM: No known issue matches this error text.');
         return;
     }
 
     try {
         await window.KnownIssuesApiClient.deleteKnownIssue(matchedIssue.id);
-        alert('Known issue deleted!');
-        location.reload();
+        console.log(`VIM: Deleted issue ${matchedIssue.id}`);
+        window.injectActionButtonAndLabel();
     } catch (e) {
-        console.error(e);
+        console.error('VIM: Failed to delete issue:', e);
         alert(`Failed to delete issue: ${e.message}`);
     }
 }
@@ -73,7 +72,7 @@ async function handleReportClick(e, rowElement) {
 
     const errorDiv = row.querySelector(settings.errorSelector);
     if (!errorDiv) {
-        alert('No .error div found in this row.');
+        console.warn('VIM: No .error div found in this row.');
         return;
     }
 
@@ -105,13 +104,12 @@ async function handleReportClick(e, rowElement) {
 async function saveKnownIssue(regex) {
     try {
         const result = await window.KnownIssuesApiClient.saveKnownIssue(regex);
-        alert(`Known issue saved! ID: ${result.id}`);
-        window.runMatcher(); // Re-scan page using the unified function
+        console.log(`VIM: Saved issue ${result.id}`);
+        window.injectActionButtonAndLabel();
     } catch (e) {
-        console.error(e);
+        console.error('VIM: Failed to save issue:', e);
         alert(`Failed to save issue: ${e.message}`);
     }
-    location.reload();
 }
 
 // Expose to window
