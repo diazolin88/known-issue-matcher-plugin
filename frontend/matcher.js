@@ -10,7 +10,7 @@
  * 
  * @async
  */
-async function runMatcher() {
+async function injectActionButtonAndLabel() {
     try {
         console.log('VIM: runMatcher started');
         const settings = window.getSettings();
@@ -121,4 +121,4 @@ async function checkPageForKnownIssues(knownIssues, settings) {
 }
 
 // Expose to window
-window.runMatcher = runMatcher;
+window.injectActionButtonAndLabel = injectActionButtonAndLabel;
