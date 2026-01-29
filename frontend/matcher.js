@@ -37,6 +37,7 @@ async function injectActionButtonAndLabel() {
  */
 async function injectButtons(knownIssues, settings) {
     const rowElements = document.querySelectorAll(settings.rowSelector);
+    console.log('VIM: injectButtons started', rowElements);
 
     rowElements.forEach(rowElement => {
         const text = rowElement.textContent;
@@ -55,17 +56,20 @@ async function injectButtons(knownIssues, settings) {
         }
 
         // Identify if this row matches a known issue
-        const row = rowElement.closest('tr');
+        const row = rowElement.parentNode.nextElementSibling;
+        console.log('VIM: row', row);
         let isKnown = false;
         if (row) {
             const errorDiv = row.querySelector(settings.errorSelector);
             if (errorDiv) {
                 const errorText = errorDiv.textContent.trim();
-                isKnown = knownIssues.some(issue => {
-                    try {
-                        return new RegExp(issue.regex_pattern, 'i').test(errorText);
-                    } catch (e) { return false; }
-                });
+                if (knownIssues && Array.isArray(knownIssues)) {
+                    isKnown = knownIssues.some(issue => {
+                        try {
+                            return new RegExp(issue.regex_pattern, 'i').test(errorText);
+                        } catch (e) { return false; }
+                    });
+                }
             }
         }
 
@@ -76,7 +80,7 @@ async function injectButtons(knownIssues, settings) {
             delBtn.type = 'button';
             delBtn.title = 'Delete Known Issue';
             delBtn.className = 'vim-delete-btn';
-            delBtn.onclick = (e) => window.handleDeleteClick(e, rowElement);
+            delBtn.onclick = (e) => window.handleDeleteClick(e, row);
             container.appendChild(delBtn);
         } else {
             // Only show Report button if it's a new issue
@@ -85,7 +89,7 @@ async function injectButtons(knownIssues, settings) {
             btn.type = 'button';
             btn.className = 'vim-matcher-btn';
             btn.title = 'Report Known Issue';
-            btn.onclick = (e) => window.handleReportClick(e, rowElement);
+            btn.onclick = (e) => window.handleReportClick(e, row);
             container.appendChild(btn);
         }
     });

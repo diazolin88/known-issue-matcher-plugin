@@ -12,10 +12,11 @@
  * @param {HTMLElement} rowElement - The element containing the test iteration text.
  */
 async function handleDeleteClick(e, rowElement) {
+    console.log('VIM: handleDeleteClick started', rowElement);
     if (e) e.preventDefault();
 
     const settings = window.getSettings();
-    const row = rowElement.closest('tr');
+    const row = rowElement;
     if (!row) return;
 
     const errorDiv = row.querySelector(settings.errorSelector);
@@ -67,7 +68,7 @@ async function handleReportClick(e, rowElement) {
     if (e) e.preventDefault();
 
     const settings = window.getSettings();
-    const row = rowElement.closest('tr');
+    const row = rowElement;
     if (!row) return;
 
     const errorDiv = row.querySelector(settings.errorSelector);
@@ -82,7 +83,7 @@ async function handleReportClick(e, rowElement) {
 
     const bodyContent = `
         <p>Detected Error Content (you can edit the regex below):</p>
-        <input type="text" id="vim-regex-input" value="${window.escapeHtml(safeRegex)}" style="width: 100%;">
+        <textarea id="vim-regex-input" style="width: 100%; min-height: 100px; resize: vertical; font-family: monospace;">${window.escapeHtml(safeRegex)}</textarea>
     `;
 
     window.createModal({

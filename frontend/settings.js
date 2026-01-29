@@ -12,8 +12,8 @@
 function getSettings() {
     return {
         apiUrl: localStorage.getItem('vim_api_url') || 'http://localhost:3000/known-issues',
-        rowSelector: localStorage.getItem('vim_row_selector') || 'strong',
-        errorSelector: localStorage.getItem('vim_error_selector') || '.error'
+        rowSelector: localStorage.getItem('vim_row_selector') || "[data-controller='components--rich-text'] h3 strong",
+        errorSelector: localStorage.getItem('vim_error_selector') || "code strong"
     };
 }
 

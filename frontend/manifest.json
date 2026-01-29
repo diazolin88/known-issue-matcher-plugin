@@ -9,14 +9,12 @@
     "storage"
   ],
   "host_permissions": [
-    "file:///home/alex/projects/known-issues-matcher-plugin/frontend/test-page.html",
-    "https://*.testmo.com/*"
+    "*://*.testmo.net/*"
   ],
   "content_scripts": [
     {
       "matches": [
-        "file:///home/alex/projects/known-issues-matcher-plugin/frontend/test-page.html",
-        "https://*.testmo.com/*"
+        "*://*.testmo.net/*"
       ],
       "js": [
         "api-client.js",
@@ -25,7 +23,8 @@
         "settings-ui.js",
         "actions.js",
         "matcher.js",
-        "content.js"
+        "content.js",
+        "observer.js"
       ],
       "css": [
         "styles.css"
